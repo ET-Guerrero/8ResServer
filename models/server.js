@@ -1,6 +1,8 @@
 const express = require('express')
 var cors = require('cors')
 
+const {dbConnection} = require('../database/config')
+
 //Cosas que llamo para mi prueba personal de ejemplo
 const {Router} = require('express');
 const routerEjemplo = Router();
@@ -13,6 +15,9 @@ class Server {
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios'
 
+        // Conectar a base de datos
+        this.conectarDB()
+
         //Middlewares: funcion3s que añaden otras funcionalidades al webserver
         this.middlewares();
 
@@ -20,6 +25,10 @@ class Server {
 
         this.routes()
 
+    }
+
+    async conectarDB(){
+        await dbConnection();
     }
 
     middlewares(){
