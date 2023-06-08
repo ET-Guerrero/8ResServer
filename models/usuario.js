@@ -14,14 +14,13 @@ const UsuarioSchema = Schema({
     password: {
         type: String,
         required: [true, ' La contraseña es obligatoria']
-    },
+    }, 
     img: {
         type: String
     },
     rol: {
         type: String,
-        required: true,
-        enum: ['ADMIN_ROLE', 'USER_ROLE']
+        required: true
     },
     estado: {
         type: Boolean,
@@ -34,6 +33,12 @@ const UsuarioSchema = Schema({
     
 
 
-})
+});
+
+UsuarioSchema.methods.toJSON = function(){
+    const{__v, password, ...usuario} = this.toObject();
+    return usuario;
+}
+
 //Aqui estoy creando la clase Usuario que ademas de otros parametros y metodos, tiene el esquema que le di yo
 module.exports = model('Usuario', UsuarioSchema );
