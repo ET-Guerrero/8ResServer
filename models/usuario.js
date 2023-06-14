@@ -36,9 +36,14 @@ const UsuarioSchema = Schema({
 });
 
 UsuarioSchema.methods.toJSON = function(){
-    const{__v, password, ...usuario} = this.toObject();
+    const{__v, password, _id, ...usuario} = this.toObject();
+    usuario.uid = _id
+
+    
     return usuario;
 }
+
+
 
 //Aqui estoy creando la clase Usuario que ademas de otros parametros y metodos, tiene el esquema que le di yo
 module.exports = model('Usuario', UsuarioSchema );

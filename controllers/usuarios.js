@@ -2,7 +2,7 @@ const { response , request} = require('express')
 const bcryptjs = require('bcryptjs')
 
 
-const Usuario = require('../models/usuario');
+const {Usuario} = require('../models');
 const Yoyos = require('../models/yoyo')
 
 
@@ -101,19 +101,19 @@ const usuariosDelete = async(req, res = response) => {
 
   const {id} = req.params;
 
+  const uid = req.uid;
+
+
   // Lo borraMOS FISICAMENTE
   //const usuario = await Usuario.findByIdAndDelete(id);
 
-    const usuario = await Usuario.findByIdAndUpdate(id, {estado:false});
+  const usuario = await Usuario.findByIdAndUpdate(id, {estado:false});
+  const usuarioAuntenticado = req.usuario;
+  
 
 
 
-    res.json({
-        ok: true,
-        msg: 'Delete API - Controlador',
-        id,
-        usuario
-    })
+  res.json({usuario , uid  , usuarioAuntenticado})
   }
 
 
